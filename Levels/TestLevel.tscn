@@ -28,3 +28,8 @@ tile_data = PoolIntArray( 3, 3, 0, 10, 1610612739, 0, 65539, 3, 0, 65546, 161061
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 1 )
+
+[node name="WaveCooldown" type="Timer" parent="."]
+wait_time = 30.0
+
+[connection signal="timeout" from="WaveCooldown" to="." method="_on_WaveCooldown_timeout"]

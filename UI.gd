@@ -3,6 +3,15 @@ extends Node
 func _ready():
 	pass
 
+onready var moneydisplay = $MoneyBar/Label
+onready var wavecounter = $WaveCounter/Label
+onready var wavetimer = $WaveTimer/Value
+
+func _process(delta):
+	moneydisplay.text = "$" + str(GameStats.PlayerMoney)
+	wavecounter.text = str(GameStats.current_wave)
+	wavetimer.text = str(GameStats.time_till_next_wave)
+
 func set_tower_preview(tower_type, mouse_position):
 	var drag_tower = load("res://Towers/" + tower_type + ".tscn").instance()
 	drag_tower.set_name("DragTower")
@@ -29,3 +38,23 @@ func update_tower_preview(tile_position, color):
 	if get_node("TowerPreview/DragTower").modulate != Color(color):
 		get_node("TowerPreview/DragTower").modulate = Color(color)
 		get_node("TowerPreview/Sprite").modulate = Color(color)
+
+
+func _on_PausePlay_pressed():
+	if get_tree().is_paused():
+		get_tree().paused = false
+	else:
+		get_tree().paused = true
+
+
+func _on_SpeedUp_pressed():
+	print("pushed")
+	if Engine.get_time_scale() == 5.0:
+		Engine.set_time_scale(1.0)
+		print("1")
+	else:
+		print("2")
+		Engine.set_time_scale(5.0)
+	#if get_tree().is_paused():
+	#	get_tree().paused = false
+	print(Engine.time_scale)

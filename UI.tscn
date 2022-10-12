@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://UI.gd" type="Script" id=1]
 [ext_resource path="res://Towers/CannonT1Icon.png" type="Texture" id=2]
 [ext_resource path="res://Towers/MissileT1Icon.png" type="Texture" id=3]
+[ext_resource path="res://pause.png" type="Texture" id=4]
+[ext_resource path="res://Forward.png" type="Texture" id=5]
+[ext_resource path="res://fastForward.png" type="Texture" id=6]
+[ext_resource path="res://Kenney Pixel.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 7 )
 
 [node name="UI" type="Node"]
 script = ExtResource( 1 )
@@ -31,10 +41,11 @@ margin_left = -53.5
 margin_top = -20.0
 margin_right = 53.5
 margin_bottom = -6.0
+custom_fonts/font = SubResource( 1 )
 text = "Purchase Towers"
 align = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+[node name="BuildBar" type="VBoxContainer" parent="ColorRect"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -44,15 +55,128 @@ margin_top = -96.0
 margin_right = 32.0
 margin_bottom = 168.0
 
-[node name="Cannon" type="TextureButton" parent="ColorRect/VBoxContainer" groups=["build_button"]]
+[node name="Cannon" type="TextureButton" parent="ColorRect/BuildBar" groups=["build_button"]]
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 texture_normal = ExtResource( 2 )
 
-[node name="Missile" type="TextureButton" parent="ColorRect/VBoxContainer" groups=["build_button"]]
+[node name="Missile" type="TextureButton" parent="ColorRect/BuildBar" groups=["build_button"]]
 margin_top = 68.0
 margin_right = 64.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 64, 64 )
 texture_normal = ExtResource( 3 )
+
+[node name="SpeedControls" type="HBoxContainer" parent="."]
+pause_mode = 2
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PausePlay" type="TextureButton" parent="SpeedControls"]
+margin_right = 50.0
+margin_bottom = 50.0
+toggle_mode = true
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+
+[node name="SpeedUp" type="TextureButton" parent="SpeedControls"]
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 6 )
+
+[node name="MoneyBar" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 200.0
+margin_right = -16.0
+margin_bottom = 232.0
+color = Color( 0.623529, 0.611765, 0.611765, 1 )
+
+[node name="Label" type="Label" parent="MoneyBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "$500"
+align = 1
+valign = 1
+
+[node name="WaveCounter" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 64.0
+margin_right = -16.0
+margin_bottom = 96.0
+color = Color( 0.623529, 0.611765, 0.611765, 1 )
+
+[node name="Label" type="Label" parent="WaveCounter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "$500"
+align = 1
+valign = 1
+
+[node name="TimeUntilNextWave" type="Label" parent="WaveCounter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -32.0
+margin_right = 8.0
+margin_bottom = -32.0
+custom_fonts/font = SubResource( 2 )
+text = "Wave"
+align = 1
+valign = 1
+
+[node name="WaveTimer" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 128.0
+margin_right = -16.0
+margin_bottom = 160.0
+color = Color( 0.623529, 0.611765, 0.611765, 1 )
+
+[node name="Value" type="Label" parent="WaveTimer"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -64.0
+custom_fonts/font = SubResource( 2 )
+text = "30"
+align = 1
+valign = 1
+
+[node name="TimeUntilNextWave" type="Label" parent="WaveTimer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -32.0
+margin_right = 8.0
+margin_bottom = -32.0
+custom_fonts/font = SubResource( 2 )
+text = "Time Until Next Wave"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="WaveTimer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -96.0
+margin_right = -64.0
+margin_bottom = 32.0
+color = Color( 0.513726, 0.513726, 0.513726, 1 )
+
+[node name="SkipWaveButton" type="TextureButton" parent="WaveTimer" groups=["skip_wave"]]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 32, 32 )
+rect_scale = Vector2( 0.62, 0.622424 )
+texture_normal = ExtResource( 5 )
+
+[connection signal="pressed" from="SpeedControls/PausePlay" to="." method="_on_PausePlay_pressed"]
+[connection signal="pressed" from="SpeedControls/SpeedUp" to="." method="_on_SpeedUp_pressed"]
