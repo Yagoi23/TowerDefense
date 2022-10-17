@@ -1,5 +1,5 @@
 extends Node2D
-class_name Turret
+class_name MissileTurret
 
 var enemy_array = []
 var built = false
@@ -18,6 +18,7 @@ func _physics_process(delta):
 		turn()
 		if ready:
 			fire()
+			print(target_enemy)
 	else:
 		target_enemy = null
 
@@ -27,8 +28,7 @@ func turn():
 	get_node("Turret").look_at(target_enemy.position)
 
 func _on_Range_body_entered(body):
-	if body.is_in_group("enemy"):
-		enemy_array.append(body.get_parent())
+	enemy_array.append(body.get_parent())
 	#print(enemy_array)
 
 func _on_Range_body_exited(body):
@@ -36,15 +36,24 @@ func _on_Range_body_exited(body):
 
 func select_enemy():
 	var enemy_progress_array = []
-	for i in enemy_array:
-		enemy_progress_array.append(i.offset)
+	#for i in enemy_array:
+	#	enemy_progress_array.append(i.offset)
 	var max_offset = enemy_progress_array.max()
 	var enemy_index = enemy_progress_array.find(max_offset)
 	target_enemy = enemy_array[enemy_index]
 
 func fire():
 	ready = false
-	target_enemy.on_hit(GameStats.tower_data[turret_type]["damage"])
+	var ammo_type = GameStats.tower_data[turret_type]["projectile"]
+	var new_projectile = load("res://Towers/" + ammo_type + ".tscn").instance()
+	new_projectile.position = self.get_node("Turret/Position2D").global_position
+	new_projectile.proj_speed = GameStats.tower_data[turret_type]["velocity"]
+	new_projectile.ammo_type = ammo_type
+	new_projectile.target = target_enemy
+	new_projectile.damage = GameStats.tower_data[turret_type]["damage"]
+	new_projectile.friendly_damage = GameStats.tower_data[turret_type]["friendly_damage"]
+	get_parent().add_child(new_projectile)
+	#target_enemy.on_hit(GameStats.tower_data[turret_type]["damage"])
 	yield(get_tree().create_timer((GameStats.tower_data[turret_type]["fire_rate"])/GameStats.fire_rate_multiplier), "timeout")
 	ready = true
 

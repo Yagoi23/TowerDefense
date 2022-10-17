@@ -6,11 +6,16 @@ func _ready():
 onready var moneydisplay = $MoneyBar/Label
 onready var wavecounter = $WaveCounter/Label
 onready var wavetimer = $WaveTimer/Value
+onready var lifecounter = $LifeCounter/Label
+onready var enemiesremaining = $EnemiesRemaining/Label
+
 
 func _process(delta):
 	moneydisplay.text = "$" + str(GameStats.PlayerMoney)
 	wavecounter.text = str(GameStats.current_wave)
 	wavetimer.text = str(GameStats.time_till_next_wave)
+	lifecounter.text = str(GameStats.PlayerLives)
+	enemiesremaining.text = str(self.get_parent().get_node("Path2D").get_child_count())
 
 func set_tower_preview(tower_type, mouse_position):
 	var drag_tower = load("res://Towers/" + tower_type + ".tscn").instance()

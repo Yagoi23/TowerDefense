@@ -18,6 +18,7 @@ func _ready():
 		i.connect("pressed", self, "skip_wave")
 	start_wave()
 	GameStats.PlayerMoney = 100
+	GameStats.PlayerLives = 5
 
 func _unhandled_input(event):
 	if event.is_action_released("right_click") and build_mode == true:
@@ -34,6 +35,14 @@ func _process(delta):
 	#print(current_wave)
 	#if current_wave < (GameStats.lvlwaves[self.name].size()):
 	#	start_wave()
+	if (current_wave >= GameStats.lvlwaves[self.name].size() -1) and no_enemies_left():
+		game_won()
+
+func game_over():
+	pass
+
+func game_won():
+	print("winner")
 
 ####################################################################################################
 ##Wave Functions
@@ -43,12 +52,15 @@ func start_wave():
 	yield(get_tree().create_timer(0.2),"timeout") #stops waves spawning instantly
 	spawn_enemies(wave_data)
 	GameStats.current_wave = current_wave
-	self.get_node("WaveCooldown").start()
+	self.get_node("WaveCooldown").wait_time = 0
+	if current_wave != (GameStats.lvlwaves[self.name].size()):
+		self.get_node("WaveCooldown").start()
 	#print(GameStats.lvlwaves[self.name].size())
 
 func skip_wave():
-	if current_wave < GameStats.lvlwaves[self.name].size():
+	if current_wave < GameStats.lvlwaves[self.name].size() and no_enemies_left():
 		start_wave()
+		GameStats.PlayerMoney += int(self.get_node("WaveCooldown").time_left * 1)
 
 func retrieve_wave_data():
 	var wave_data = GameStats.lvlwaves[self.name]["wave"+str(current_wave)]#[["greyAPC", 0.7], ["greyAPC", 0.2]]
@@ -66,10 +78,14 @@ func _on_WaveCooldown_timeout():
 	if current_wave < GameStats.lvlwaves[self.name].size():
 		start_wave()
 	else:
-		check_enemy_count()
+		pass
 
-func check_enemy_count():
-	pass
+func no_enemies_left() -> bool:
+	if self.get_node("Path2D").get_child_count() == 0:
+		return true
+	else:
+		return false
+
 ####################################################################################################
 ##Building Functions
 ####################################################################################################

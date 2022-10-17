@@ -14,6 +14,9 @@ func _ready():
 	healthbar.set_as_toplevel(true)
 
 func _physics_process(delta):
+	if unit_offset == 1.0:
+		GameStats.PlayerLives -= 1
+		queue_free()
 	move(delta)
 
 func move(delta):

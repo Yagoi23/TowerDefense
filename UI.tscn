@@ -8,10 +8,10 @@
 [ext_resource path="res://fastForward.png" type="Texture" id=6]
 [ext_resource path="res://Kenney Pixel.ttf" type="DynamicFontData" id=7]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 7 )
 
 [node name="UI" type="Node"]
@@ -24,49 +24,34 @@ anchor_bottom = 1.0
 margin_left = -128.0
 color = Color( 0.396078, 0.396078, 0.396078, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+[node name="LifeCounter" type="ColorRect" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -96.0
-margin_top = 264.0
-margin_right = -32.0
-margin_bottom = -192.0
+margin_left = -112.0
+margin_top = 72.0
+margin_right = -16.0
+margin_bottom = 104.0
 color = Color( 0.623529, 0.611765, 0.611765, 1 )
 
-[node name="Label" type="Label" parent="ColorRect/ColorRect"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -53.5
-margin_top = -20.0
-margin_right = 53.5
-margin_bottom = -6.0
-custom_fonts/font = SubResource( 1 )
-text = "Purchase Towers"
+[node name="Label" type="Label" parent="LifeCounter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
 align = 1
+valign = 1
 
-[node name="BuildBar" type="VBoxContainer" parent="ColorRect"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -96.0
-margin_right = 32.0
-margin_bottom = 168.0
-
-[node name="Cannon" type="TextureButton" parent="ColorRect/BuildBar" groups=["build_button"]]
-margin_right = 64.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 64 )
-texture_normal = ExtResource( 2 )
-
-[node name="Missile" type="TextureButton" parent="ColorRect/BuildBar" groups=["build_button"]]
-margin_top = 68.0
-margin_right = 64.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 64, 64 )
-texture_normal = ExtResource( 3 )
+[node name="Lives" type="Label" parent="LifeCounter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -32.0
+margin_right = 8.0
+margin_bottom = -32.0
+custom_fonts/font = SubResource( 2 )
+text = "Lives Remaining"
+align = 1
+valign = 1
 
 [node name="SpeedControls" type="HBoxContainer" parent="."]
 pause_mode = 2
@@ -86,37 +71,20 @@ margin_right = 104.0
 margin_bottom = 50.0
 texture_normal = ExtResource( 6 )
 
-[node name="MoneyBar" type="ColorRect" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -112.0
-margin_top = 200.0
-margin_right = -16.0
-margin_bottom = 232.0
-color = Color( 0.623529, 0.611765, 0.611765, 1 )
-
-[node name="Label" type="Label" parent="MoneyBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 2 )
-text = "$500"
-align = 1
-valign = 1
-
 [node name="WaveCounter" type="ColorRect" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -112.0
-margin_top = 64.0
+margin_top = 168.0
 margin_right = -16.0
-margin_bottom = 96.0
+margin_bottom = 200.0
 color = Color( 0.623529, 0.611765, 0.611765, 1 )
 
 [node name="Label" type="Label" parent="WaveCounter"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = SubResource( 2 )
-text = "$500"
+text = "0"
 align = 1
 valign = 1
 
@@ -136,9 +104,9 @@ valign = 1
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -112.0
-margin_top = 128.0
+margin_top = 232.0
 margin_right = -16.0
-margin_bottom = 160.0
+margin_bottom = 264.0
 color = Color( 0.623529, 0.611765, 0.611765, 1 )
 
 [node name="Value" type="Label" parent="WaveTimer"]
@@ -177,6 +145,108 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 32, 32 )
 rect_scale = Vector2( 0.62, 0.622424 )
 texture_normal = ExtResource( 5 )
+
+[node name="EnemiesRemaining" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 296.0
+margin_right = -16.0
+margin_bottom = 328.0
+color = Color( 0.623529, 0.611765, 0.611765, 1 )
+
+[node name="Label" type="Label" parent="EnemiesRemaining"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="EnemiesRemaining" type="Label" parent="EnemiesRemaining"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -32.0
+margin_right = 8.0
+margin_bottom = -32.0
+custom_fonts/font = SubResource( 2 )
+text = "Enemies Remaining"
+align = 1
+valign = 1
+
+[node name="MoneyBar" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 384.0
+margin_right = -16.0
+margin_bottom = 416.0
+color = Color( 0.623529, 0.611765, 0.611765, 1 )
+
+[node name="Label" type="Label" parent="MoneyBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "$500"
+align = 1
+valign = 1
+
+[node name="TimeUntilNextWave" type="Label" parent="MoneyBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = -32.0
+margin_right = 8.0
+margin_bottom = -32.0
+custom_fonts/font = SubResource( 2 )
+text = "Money"
+align = 1
+valign = 1
+
+[node name="BuildingMenu" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -96.0
+margin_top = 440.0
+margin_right = -32.0
+margin_bottom = -16.0
+color = Color( 0.623529, 0.611765, 0.611765, 1 )
+
+[node name="Label" type="Label" parent="BuildingMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -53.5
+margin_top = -20.0
+margin_right = 53.5
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 1 )
+text = "Purchase Towers"
+align = 1
+
+[node name="BuildBar" type="VBoxContainer" parent="BuildingMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -132.0
+margin_right = 32.0
+margin_bottom = 132.0
+
+[node name="Cannon" type="TextureButton" parent="BuildingMenu/BuildBar" groups=["build_button"]]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture_normal = ExtResource( 2 )
+
+[node name="Missile" type="TextureButton" parent="BuildingMenu/BuildBar" groups=["build_button"]]
+margin_top = 68.0
+margin_right = 64.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 64, 64 )
+texture_normal = ExtResource( 3 )
 
 [connection signal="pressed" from="SpeedControls/PausePlay" to="." method="_on_PausePlay_pressed"]
 [connection signal="pressed" from="SpeedControls/SpeedUp" to="." method="_on_SpeedUp_pressed"]

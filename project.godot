@@ -14,10 +14,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Enemy/BasicEnemy.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "BasicMissile",
+"language": "GDScript",
+"path": "res://Towers/BasicMissile.gd"
+}, {
 "base": "Node2D",
 "class": "GameInstance",
 "language": "GDScript",
 "path": "res://GameInstance.gd"
+}, {
+"base": "Node2D",
+"class": "MissileTurret",
+"language": "GDScript",
+"path": "res://Towers/MissileTurret.gd"
 }, {
 "base": "Node2D",
 "class": "Turret",
@@ -26,7 +36,9 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BasicEnemy": "",
+"BasicMissile": "",
 "GameInstance": "",
+"MissileTurret": "",
 "Turret": ""
 }
 

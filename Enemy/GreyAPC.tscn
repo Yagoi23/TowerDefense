@@ -10,7 +10,7 @@
 loop = false
 script = ExtResource( 2 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+[node name="KinematicBody2D" type="KinematicBody2D" parent="." groups=["enemy"]]
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]
 texture = ExtResource( 1 )
