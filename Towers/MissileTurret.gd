@@ -21,6 +21,12 @@ func _physics_process(delta):
 			print(target_enemy)
 	else:
 		target_enemy = null
+	#check_enemy_array()
+
+func check_enemy_array():
+	for i in enemy_array:
+		if not self.get_parent().get_node(enemy_array[i].name):
+			enemy_array[i].erase()
 
 func turn():
 	#var closest_enemy_position = get_global_mouse_position()
@@ -40,7 +46,7 @@ func select_enemy():
 	#	enemy_progress_array.append(i.offset)
 	var max_offset = enemy_progress_array.max()
 	var enemy_index = enemy_progress_array.find(max_offset)
-	target_enemy = enemy_array[enemy_index]
+	target_enemy = enemy_array[0]
 
 func fire():
 	ready = false
