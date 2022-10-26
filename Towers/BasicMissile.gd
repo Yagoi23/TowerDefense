@@ -32,4 +32,5 @@ func blow_up():
 	new_explosion.damage = damage
 	new_explosion.friendly_damage = friendly_damage
 	get_parent().add_child(new_explosion)
+	#deletes this node
 	self.queue_free()
