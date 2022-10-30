@@ -6,6 +6,7 @@ func _ready():
 var shot = false
 
 func _process(delta):
+	#plays animation if the turret is ready and hasn't shot
 	if not ready and shot == false:
 		play_fire_animation()
 		shot = true

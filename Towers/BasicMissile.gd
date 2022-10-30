@@ -9,14 +9,18 @@ var friendly_damage
 
 func _physics_process(delta):
 	move(delta)
+	#this doesn't work yet #if get_node("Path2D").get_child_count() == 0:
+		#this doesn't work yet #blow_up()
 	#print(target + ammo_type + velocity)
 
 func move(delta):
 	#sets  the direction to the target and then moves towards the target
-	var tar_dir = global_position.direction_to(target.global_position)
-	move_and_slide(tar_dir*proj_speed*delta)
-	#points towards target
-	look_at(target.global_position)
+	if target:
+		var tar_dir = global_position.direction_to(target.global_position)
+		move_and_slide(tar_dir*proj_speed*delta)
+		#points towards target
+		look_at(target.global_position)
+	
 
 func _on_Area2D_body_entered(body):
 	#blows up when contacting a missile or enemy

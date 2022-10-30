@@ -11,6 +11,7 @@ onready var enemiesremaining = $EnemiesRemaining/Label
 
 
 func _process(delta):
+	#updates user information
 	moneydisplay.text = "$" + str(GameStats.PlayerMoney)
 	wavecounter.text = str(GameStats.current_wave)
 	wavetimer.text = str(GameStats.time_till_next_wave)
@@ -18,6 +19,7 @@ func _process(delta):
 	enemiesremaining.text = str(self.get_parent().get_node("Path2D").get_child_count())
 
 func set_tower_preview(tower_type, mouse_position):
+	#sets the tower preview
 	var drag_tower = load("res://Towers/" + tower_type + ".tscn").instance()
 	drag_tower.set_name("DragTower")
 	drag_tower.modulate = Color("ad54ff3c")
@@ -39,6 +41,7 @@ func set_tower_preview(tower_type, mouse_position):
 	move_child(get_node("TowerPreview"), 0)
 
 func update_tower_preview(tile_position, color):
+	#updates the tower preview
 	get_node("TowerPreview").rect_position = tile_position
 	if get_node("TowerPreview/DragTower").modulate != Color(color):
 		get_node("TowerPreview/DragTower").modulate = Color(color)
@@ -46,6 +49,7 @@ func update_tower_preview(tile_position, color):
 
 
 func _on_PausePlay_pressed():
+	#pauses/unpauses the game
 	if get_tree().is_paused():
 		get_tree().paused = false
 	else:
@@ -53,6 +57,7 @@ func _on_PausePlay_pressed():
 
 
 func _on_SpeedUp_pressed():
+	#speedsup the game
 	print("pushed")
 	if Engine.get_time_scale() == 5.0:
 		Engine.set_time_scale(1.0)

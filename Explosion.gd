@@ -13,6 +13,7 @@ var friendly_damage
 #var inside_blast_radius = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#scales size and area based on blast inherited size
 	blast_radius.shape.radius = 32*size
 	sprite.scale = Vector2(size,size)
 	$AnimationPlayer.play("Explosion")
@@ -24,6 +25,7 @@ func _ready():
 
 
 func _on_Area2D_body_entered(body):
+	#hits all enemies in the node
 	if body.is_in_group("enemy"):
 		#inside_blast_radius.append(body)
 		body.get_parent().on_hit(damage)

@@ -6,6 +6,7 @@ var current_wave
 var time_till_next_wave
 var fire_rate_multiplier = 1
 
+#This is where tower information is defined
 var tower_data = {
 	"CannonT1": {
 		"damage": 20,
@@ -25,6 +26,7 @@ var tower_data = {
 		}
 	}
 
+#This is where enemy information is defined
 var enemy_data = {
 	"greyAPC": {
 		"speed": 75,
@@ -33,6 +35,7 @@ var enemy_data = {
 	}
 }
 
+#This is where wave information is defined
 var lvlwaves = {
 	"TestLevel": {
 		"wave0": [["greyAPC", 0.9], ["greyAPC", 0.9], ["greyAPC", 0.9], ["greyAPC", 0.9]],
