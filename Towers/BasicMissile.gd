@@ -15,11 +15,13 @@ func _physics_process(delta):
 
 func move(delta):
 	#sets  the direction to the target and then moves towards the target
-	if target:
+	if is_instance_valid(target):
 		var tar_dir = global_position.direction_to(target.global_position)
 		move_and_slide(tar_dir*proj_speed*delta)
 		#points towards target
 		look_at(target.global_position)
+	else:
+		blow_up()
 	
 
 func _on_Area2D_body_entered(body):

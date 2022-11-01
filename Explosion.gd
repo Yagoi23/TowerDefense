@@ -17,11 +17,14 @@ func _ready():
 	blast_radius.shape.radius = 32*size
 	sprite.scale = Vector2(size,size)
 	$AnimationPlayer.play("Explosion")
+	yield(get_tree().create_timer(0.25),"timeout")
+	self.queue_free()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-#	pass
+#	yield(get_tree().create_timer(0.25),"timeout")
+#	self.queue_free()
 
 
 func _on_Area2D_body_entered(body):
@@ -29,8 +32,7 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("enemy"):
 		#inside_blast_radius.append(body)
 		body.get_parent().on_hit(damage)
-		yield(get_tree().create_timer(0.25),"timeout")
-		self.queue_free()
+		
 
 
 func _on_Area2D_body_exited(body):
